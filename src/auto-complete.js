@@ -26,17 +26,17 @@
  * @param {boolean=} {loadOnFocus=false} Flag indicating that the source option will be evaluated when the input element
  *                                       gains focus. The current input value is available as $query.
  */
-tagsInput.directive('autoComplete', function($document, $timeout, $sce, tagsInputConfig) {
+tagsInput.directive('autoComplete', function ($document, $timeout, $sce, tagsInputConfig) {
     function SuggestionList(loadFn, options) {
         var self = {}, debouncedLoadId, getDifference, lastPromise;
 
-        getDifference = function(array1, array2) {
-            return array1.filter(function(item) {
+        getDifference = function (array1, array2) {
+            return array1.filter(function (item) {
                 return !findInObjectArray(array2, item, options.tagsInput.displayProperty);
             });
         };
 
-        self.reset = function() {
+        self.reset = function () {
             lastPromise = null;
 
             self.items = [];
@@ -47,19 +47,19 @@ tagsInput.directive('autoComplete', function($document, $timeout, $sce, tagsInpu
 
             $timeout.cancel(debouncedLoadId);
         };
-        self.show = function() {
+        self.show = function () {
             self.selected = null;
             self.visible = true;
         };
-        self.load = function(query, tags) {
+        self.load = function (query, tags) {
             $timeout.cancel(debouncedLoadId);
-            debouncedLoadId = $timeout(function() {
+            debouncedLoadId = $timeout(function () {
                 self.query = query;
 
                 var promise = loadFn({ $query: query });
                 lastPromise = promise;
 
-                promise.then(function(items) {
+                promise.then(function (items) {
                     if (promise !== lastPromise) {
                         return;
                     }
@@ -77,13 +77,13 @@ tagsInput.directive('autoComplete', function($document, $timeout, $sce, tagsInpu
                 });
             }, options.debounceDelay, false);
         };
-        self.selectNext = function() {
+        self.selectNext = function () {
             self.select(++self.index);
         };
-        self.selectPrior = function() {
+        self.selectPrior = function () {
             self.select(--self.index);
         };
-        self.select = function(index) {
+        self.select = function (index) {
             if (index < 0) {
                 index = self.items.length - 1;
             }
@@ -99,12 +99,33 @@ tagsInput.directive('autoComplete', function($document, $timeout, $sce, tagsInpu
         return self;
     }
 
+    var attributes = [
+        'ng-repeat="item in suggestionList.items track by $id(item)"',
+        'ng-class="{selected: item == suggestionList.selected}"',
+        'ng-click="addSuggestionByIndex($index)"',
+        'ng-mouseenter="suggestionList.select($index)"'
+    ]
     return {
         restrict: 'E',
         require: '^tagsInput',
         scope: { source: '&' },
-        templateUrl: 'ngTagsInput/auto-complete.html',
-        link: function(scope, element, attrs, tagsInputCtrl) {
+        template: function (tElement) {
+            var template = '' +
+                '<div class="autocomplete" ng-show="suggestionList.visible">' +
+                '   <ul class="suggestion-list">' +
+                '       <li class="suggestion-item" auto-complete-item></li>' +
+                '   </ul>' +
+                '</div>';
+            var customTemplate = tElement[0].innerHTML;
+            if (customTemplate.replace(/\s/g, '').length > 0) {
+                template = '<div class="autocomplete" ng-show="suggestionList.visible">' + customTemplate + '</div>';
+            } else {
+                attributes.push('ng-bind-html="highlight(item)"');
+            }
+            return template.replace('auto-complete-item', attributes.join(' '));
+
+        },
+        link: function (scope, element, attrs, tagsInputCtrl) {
             var hotkeys = [KEYS.enter, KEYS.tab, KEYS.escape, KEYS.up, KEYS.down],
                 suggestionList, tagsInput, options, getItem, getDisplayText, shouldLoadSuggestions;
 
@@ -125,26 +146,26 @@ tagsInput.directive('autoComplete', function($document, $timeout, $sce, tagsInpu
 
             suggestionList = new SuggestionList(scope.source, options);
 
-            getItem = function(item) {
+            getItem = function (item) {
                 return item[options.tagsInput.displayProperty];
             };
 
-            getDisplayText = function(item) {
+            getDisplayText = function (item) {
                 return safeToString(getItem(item));
             };
 
-            shouldLoadSuggestions = function(value) {
+            shouldLoadSuggestions = function (value) {
                 return value && value.length >= options.minLength || !value && options.loadOnEmpty;
             };
 
             scope.suggestionList = suggestionList;
 
-            scope.addSuggestionByIndex = function(index) {
+            scope.addSuggestionByIndex = function (index) {
                 suggestionList.select(index);
                 scope.addSuggestion();
             };
 
-            scope.addSuggestion = function() {
+            scope.addSuggestion = function () {
                 var added = false;
 
                 if (suggestionList.selected) {
@@ -157,7 +178,7 @@ tagsInput.directive('autoComplete', function($document, $timeout, $sce, tagsInpu
                 return added;
             };
 
-            scope.highlight = function(item) {
+            scope.highlight = function (item) {
                 var text = getDisplayText(item);
                 text = encodeHTML(text);
                 if (options.highlightMatchedText) {
@@ -166,15 +187,15 @@ tagsInput.directive('autoComplete', function($document, $timeout, $sce, tagsInpu
                 return $sce.trustAsHtml(text);
             };
 
-            scope.track = function(item) {
+            scope.track = function (item) {
                 return getItem(item);
             };
 
             tagsInput
-                .on('tag-added tag-removed invalid-tag input-blur', function() {
+                .on('tag-added tag-removed invalid-tag input-blur', function () {
                     suggestionList.reset();
                 })
-                .on('input-change', function(value) {
+                .on('input-change', function (value) {
                     if (shouldLoadSuggestions(value)) {
                         suggestionList.load(value, tagsInput.getTags());
                     }
@@ -182,22 +203,22 @@ tagsInput.directive('autoComplete', function($document, $timeout, $sce, tagsInpu
                         suggestionList.reset();
                     }
                 })
-                .on('input-focus', function() {
+                .on('input-focus', function () {
                     var value = tagsInput.getCurrentTagText();
                     if (options.loadOnFocus && shouldLoadSuggestions(value)) {
                         suggestionList.load(value, tagsInput.getTags());
                     }
                 })
-                .on('input-keydown', function(e) {
+                .on('input-keydown', function (e) {
                     // This hack is needed because jqLite doesn't implement stopImmediatePropagation properly.
                     // I've sent a PR to Angular addressing this issue and hopefully it'll be fixed soon.
                     // https://github.com/angular/angular.js/pull/4833
                     var immediatePropagationStopped = false;
-                    e.stopImmediatePropagation = function() {
+                    e.stopImmediatePropagation = function () {
                         immediatePropagationStopped = true;
                         e.stopPropagation();
                     };
-                    e.isImmediatePropagationStopped = function() {
+                    e.isImmediatePropagationStopped = function () {
                         return immediatePropagationStopped;
                     };
 

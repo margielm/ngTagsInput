@@ -104,7 +104,7 @@ tagsInput.directive('autoComplete', function ($document, $timeout, $sce, tagsInp
         'ng-class="{selected: item == suggestionList.selected}"',
         'ng-click="addSuggestionByIndex($index)"',
         'ng-mouseenter="suggestionList.select($index)"'
-    ]
+    ];
     return {
         restrict: 'E',
         require: '^tagsInput',

@@ -1,6 +1,6 @@
 'use strict';
 
-describe('autoComplete directive', function() {
+ddescribe('autoComplete directive', function() {
     var $compile, $scope, $q, $timeout,
         parentCtrl, element, isolateScope, suggestionList, deferred, tagsInput, eventHandlers;
 

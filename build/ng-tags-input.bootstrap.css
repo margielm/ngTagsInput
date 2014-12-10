@@ -19,6 +19,9 @@ tags-input .tags {
   -moz-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
+tags-input .tags.disabled {
+  background-color: #ebebe4;
+}
 tags-input .tags .tag-item {
   color: #fff;
   background: #428bca;

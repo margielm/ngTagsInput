@@ -18,7 +18,9 @@ tags-input {
     border-radius: $tags-border-radius;
     @include box-shadow($tags-border-shadow);
     @include transition($tags-transition);
-
+    &.disabled {
+      background-color: rgb(235, 235, 228);
+    }
     .tag-item {
       color: $tag-color;
       background: $tag-bgcolor;

@@ -50,7 +50,8 @@
 </head>
 <body ng-controller="Ctrl">
 <p></p>
-<tags-input ng-model="tags" display-property="name">
+<input type="checkbox" ng-model="isDisabled"/>{{disabled}}        <input type="text" ng-disabled="isDisabled"/>
+<tags-input ng-model="tags" display-property="name" placeholder="{{getPlaceholder()}}" style="width: 200px;" is-disabled="isDisabled">
     <auto-complete source="loadItems($query)" load-on-down-arrow="true">
         <table class="suggestion-list table table-bordered table-condensed">
             <thead>
@@ -70,26 +71,28 @@
         </table>
     </auto-complete>
 </tags-input>
-<tags-input ng-model="tags" display-property="name">
-    <auto-complete source="loadItems($query)" load-on-down-arrow="true">
+<!--<tags-input ng-model="tags" display-property="name">-->
+<!--<auto-complete source="loadItems($query)" load-on-down-arrow="true">-->
 
 
-    </auto-complete>
-</tags-input>
+<!--</auto-complete>-->
+<!--</tags-input>-->
 
 <script type="text/javascript">
     angular.module('app', ['ngTagsInput'])
             .controller('Ctrl', function ($scope, $q, filterFilter) {
                 var currencies = [
-                    { code: "EUR", name: 'Euro', country: 'Germany' },
-                    { code: "EUR", name: 'Euro', country: 'France' },
-                    { code: "EUR", name: 'Euro', country: 'Luxembourg' },
-                    { code: "PLN", name: 'Polish Zloty', country: 'Polska' },
-                    { code: "IDR", name: 'Indonesian rupiah', country: 'Indonesia' }
+                    {code: "EUR", name: 'Euro', country: 'Germany'},
+                    {code: "EUR", name: 'Euro', country: 'France'},
+                    {code: "EUR", name: 'Euro', country: 'Luxembourg'},
+                    {code: "PLN", name: 'Polish Zloty', country: 'Polska'},
+                    {code: "IDR", name: 'Indonesian rupiah', country: 'Indonesia'}
                 ];
 
                 $scope.tags = [];
-                $scope.placeholder = 'New tag';
+                $scope.getPlaceholder = function () {
+                    return $scope.tags.length > 0 ? ' ' : ' ';
+                };
 
                 $scope.loadItems = function (query) {
                     var deferred = $q.defer();

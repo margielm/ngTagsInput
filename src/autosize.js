@@ -36,6 +36,8 @@ tagsInput.directive('tiAutosize', function(tagsInputConfig) {
                     span.css('display', '');
                     width = span.prop('offsetWidth');
                     span.css('display', 'none');
+                }else{
+                    width = 16;
                 }
 
                 element.css('width', width ? width + threshold + 'px' : '');

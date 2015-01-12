@@ -1,12 +1,12 @@
 {
   "name": "ngTagsInput",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "homepage": "https://github.com/margielm/ngTagsInput",
   "description": "ngTagsInput with customizable auto-complete popup",
   "main": [
     "./build/ng-tags-input.min.js",
     "./build/ng-tags-input.min.css",
-    "./build/ng-tags-input.bootstrap.css"
+    "./build/ng-tags-input.bootstrap.min.css"
   ],
   "license": "MIT",
   "ignore": [

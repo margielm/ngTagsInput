@@ -1,11 +1,11 @@
 /*!
- * ngTagsInput v2.1.4
+ * ngTagsInput v2.1.5
  * http://mbenford.github.io/ngTagsInput
  *
- * Copyright (c) 2013-2014 Michael Benford
+ * Copyright (c) 2013-2015 Michael Benford
  * License: MIT
  *
- * Generated at 2014-12-10 20:36:02 +0200
+ * Generated at 2015-01-12 20:23:40 +0100
  */
 (function() {
 'use strict';
@@ -737,6 +737,8 @@ tagsInput.directive('tiAutosize', ["tagsInputConfig", function(tagsInputConfig) 
                     span.css('display', '');
                     width = span.prop('offsetWidth');
                     span.css('display', 'none');
+                }else{
+                    width = 16;
                 }
 
                 element.css('width', width ? width + threshold + 'px' : '');

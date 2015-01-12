@@ -50,8 +50,8 @@
 </head>
 <body ng-controller="Ctrl">
 <p></p>
-<input type="checkbox" ng-model="isDisabled"/>{{disabled}}        <input type="text" ng-disabled="isDisabled"/>
-<tags-input ng-model="tags" display-property="name" placeholder="{{getPlaceholder()}}" style="width: 200px;" is-disabled="isDisabled">
+<input type="checkbox" ng-model="isDisabled"/>{{disabled}} <input type="text" ng-disabled="isDisabled"/>
+<tags-input ng-model="tags" display-property="name" placeholder="" style="width: 200px;" is-disabled="isDisabled">
     <auto-complete source="loadItems($query)" load-on-down-arrow="true">
         <table class="suggestion-list table table-bordered table-condensed">
             <thead>

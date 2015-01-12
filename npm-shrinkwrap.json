@@ -1,6 +1,6 @@
 {
   "name": "ng-tags-input",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "dependencies": {
     "karma": {
       "version": "0.12.0",

@@ -1,7 +1,6 @@
 {
   "name": "ngTagsInput",
-  "version": "2.1.6",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "homepage": "https://github.com/margielm/ngTagsInput",
   "description": "ngTagsInput with customizable auto-complete popup",
   "main": [

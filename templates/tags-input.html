@@ -1,4 +1,4 @@
-<div class="host" tabindex="-1" ti-transclude-append>
+<div class="host" ti-transclude-append>
     <div class="tags" ng-class="{'focused': hasFocus && !isDisabled, 'disabled': isDisabled}">
         <ul class="tag-list">
             <li class="tag-item" ng-repeat="tag in tagList.items track by track(tag)" ng-class="{ selected: tag == tagList.selected }">
@@ -8,11 +8,10 @@
         </ul>
         <input class="input"
                placeholder="{{placeholder}}"
-               ng-disabled="isDisabled"
                ng-model="newTag.text"
                ng-change="newTagChange()"
                ng-trim="false"
-               ng-class="{'invalid-tag': newTag.invalid}"
+               ng-class="{'invalid-tag': newTag.invalid, 'disabled': isDisabled}"
                ti-bind-attrs="{type: options.type, tabindex: options.tabindex}"
                ti-autosize>
     </div>

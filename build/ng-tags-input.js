@@ -1,11 +1,11 @@
 /*!
- * ngTagsInput v2.1.5
+ * ngTagsInput v2.1.6
  * http://mbenford.github.io/ngTagsInput
  *
  * Copyright (c) 2013-2015 Michael Benford
  * License: MIT
  *
- * Generated at 2015-01-12 20:24:34 +0100
+ * Generated at 2015-02-09 14:28:28 +0100
  */
 (function() {
 'use strict';
@@ -890,7 +890,7 @@ tagsInput.run(["$templateCache", function($templateCache) {
   'use strict';
 
   $templateCache.put('ngTagsInput/tags-input.html',
-    "<div class=\"host\" tabindex=\"-1\" ti-transclude-append=\"\"><div class=\"tags\" ng-class=\"{'focused': hasFocus && !isDisabled, 'disabled': isDisabled}\"><ul class=\"tag-list\"><li class=\"tag-item\" ng-repeat=\"tag in tagList.items track by track(tag)\" ng-class=\"{ selected: tag == tagList.selected }\"><span ng-bind=\"getDisplayText(tag)\"></span> <a class=\"remove-button\" ng-click=\"tagList.remove($index)\" ng-bind=\"options.removeTagSymbol\"></a></li></ul><input class=\"input\" placeholder=\"{{placeholder}}\" ng-disabled=\"isDisabled\" ng-model=\"newTag.text\" ng-change=\"newTagChange()\" ng-trim=\"false\" ng-class=\"{'invalid-tag': newTag.invalid}\" ti-bind-attrs=\"{type: options.type, tabindex: options.tabindex}\" ti-autosize=\"\"></div></div>"
+    "<div class=\"host\" ti-transclude-append=\"\"><div class=\"tags\" ng-class=\"{'focused': hasFocus && !isDisabled, 'disabled': isDisabled}\"><ul class=\"tag-list\"><li class=\"tag-item\" ng-repeat=\"tag in tagList.items track by track(tag)\" ng-class=\"{ selected: tag == tagList.selected }\"><span ng-bind=\"getDisplayText(tag)\"></span> <a class=\"remove-button\" ng-click=\"tagList.remove($index)\" ng-bind=\"options.removeTagSymbol\"></a></li></ul><input class=\"input\" placeholder=\"{{placeholder}}\" ng-model=\"newTag.text\" ng-change=\"newTagChange()\" ng-trim=\"false\" ng-class=\"{'invalid-tag': newTag.invalid, 'disabled': isDisabled}\" ti-bind-attrs=\"{type: options.type, tabindex: options.tabindex}\" ti-autosize=\"\"></div></div>"
   );
 
 

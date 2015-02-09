@@ -70,6 +70,10 @@ tags-input {
         color: $tag-color-invalid;
       }
 
+      &.disabled{
+        visibility: hidden;
+      }
+
       &::-ms-clear {
         display: none;
       }

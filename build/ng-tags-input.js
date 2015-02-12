@@ -1,11 +1,11 @@
 /*!
- * ngTagsInput v2.1.6
+ * ngTagsInput v2.1.8
  * http://mbenford.github.io/ngTagsInput
  *
  * Copyright (c) 2013-2015 Michael Benford
  * License: MIT
  *
- * Generated at 2015-02-09 14:28:28 +0100
+ * Generated at 2015-02-12 11:51:13 +0100
  */
 (function() {
 'use strict';
@@ -474,7 +474,7 @@ tagsInput.directive('autoComplete', ["$document","$timeout","$sce","tagsInputCon
             debouncedLoadId = $timeout(function () {
                 self.query = query;
 
-                var promise = loadFn({ $query: query });
+                var promise = loadFn({$query: query});
                 lastPromise = promise;
 
                 promise.then(function (items) {
@@ -526,20 +526,19 @@ tagsInput.directive('autoComplete', ["$document","$timeout","$sce","tagsInputCon
     return {
         restrict: 'E',
         require: '^tagsInput',
-        scope: { source: '&' },
+        scope: {source: '&'},
         template: function (tElement) {
-            var template = '' +
-                '<div class="autocomplete" ng-show="suggestionList.visible">' +
+            var template =
                 '   <ul class="suggestion-list">' +
                 '       <li class="suggestion-item" auto-complete-item></li>' +
-                '   </ul>' +
-                '</div>';
+                '   </ul>';
             var customTemplate = tElement[0].innerHTML;
             if (customTemplate.replace(/\s/g, '').length > 0) {
-                template = '<div class="autocomplete" ng-show="suggestionList.visible">' + customTemplate + '</div>';
+                template = customTemplate;
             } else {
                 attributes.push('ng-bind-html="highlight(item)"');
             }
+            template = '<div class="autocomplete" ng-show="suggestionList.visible" tabindex="0">' + template + '</div>';
             return template.replace('auto-complete-item', attributes.join(' '));
 
         },

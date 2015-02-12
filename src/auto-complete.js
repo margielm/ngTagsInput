@@ -56,7 +56,7 @@ tagsInput.directive('autoComplete', function ($document, $timeout, $sce, tagsInp
             debouncedLoadId = $timeout(function () {
                 self.query = query;
 
-                var promise = loadFn({ $query: query });
+                var promise = loadFn({$query: query});
                 lastPromise = promise;
 
                 promise.then(function (items) {
@@ -108,20 +108,19 @@ tagsInput.directive('autoComplete', function ($document, $timeout, $sce, tagsInp
     return {
         restrict: 'E',
         require: '^tagsInput',
-        scope: { source: '&' },
+        scope: {source: '&'},
         template: function (tElement) {
-            var template = '' +
-                '<div class="autocomplete" ng-show="suggestionList.visible">' +
+            var template =
                 '   <ul class="suggestion-list">' +
                 '       <li class="suggestion-item" auto-complete-item></li>' +
-                '   </ul>' +
-                '</div>';
+                '   </ul>';
             var customTemplate = tElement[0].innerHTML;
             if (customTemplate.replace(/\s/g, '').length > 0) {
-                template = '<div class="autocomplete" ng-show="suggestionList.visible">' + customTemplate + '</div>';
+                template = customTemplate;
             } else {
                 attributes.push('ng-bind-html="highlight(item)"');
             }
+            template = '<div class="autocomplete" ng-show="suggestionList.visible" tabindex="0">' + template + '</div>';
             return template.replace('auto-complete-item', attributes.join(' '));
 
         },

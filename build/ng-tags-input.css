@@ -95,6 +95,7 @@ tags-input.ng-invalid .tags {
 }
 
 tags-input .autocomplete {
+  outline: none;
   margin-top: 5px;
   position: absolute;
   padding: 5px 0;
